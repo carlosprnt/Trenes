@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Quién manda en el tren</title>
+  <meta name="description" content="Análisis de la cúpula directiva de Renfe y Adif: experiencia previa, vínculos con Óscar Puente, causas judiciales, sueldos e idoneidad para el cargo.">
+  <meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121418" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Renfe · Adif · Ministerio de Transportes</p>
+      <h1>Quién manda en el tren</h1>
+      <p class="lede">Quién dirige Renfe y Adif, de dónde viene cada directivo, qué relación tiene con Óscar Puente, cuánto cobra y si su currículum encaja con el puesto.</p>
+      <p class="stamp">Datos a <span id="fecha"></span> · <button class="linkish" id="themeBtn" type="button" aria-label="Cambiar tema">Tema</button></p>
+
+      <ul class="context" aria-label="Contexto">
+        <li><strong>28 oct 2026</strong><span>Choque de un AVE y un Iryo en Urda (Toledo), ≈69 muertos (cifra provisional)</span></li>
+        <li><strong>18 ene 2026</strong><span>Accidente de Adamuz (Córdoba), 46 muertos</span></li>
+        <li><strong>29 nov 2026</strong><span>Elecciones generales. Puente encabeza la lista del PSOE por Valladolid</span></li>
+      </ul>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Secciones">
+    <div class="wrap tabs-inner" role="tablist">
+      <a role="tab" id="tab-personas" href="#personas" data-tab="personas">Personas</a>
+      <a role="tab" id="tab-red" href="#red" data-tab="red">Red Puente</a>
+      <a role="tab" id="tab-sueldos" href="#sueldos" data-tab="sueldos">Sueldos</a>
+      <a role="tab" id="tab-casos" href="#casos" data-tab="casos">Casos</a>
+      <a role="tab" id="tab-metodo" href="#metodo" data-tab="metodo">Método</a>
+    </div>
+  </nav>
+
+  <main id="main" class="wrap">
+
+    <!-- PERSONAS -->
+    <section id="panel-personas" class="panel" role="tabpanel" aria-labelledby="tab-personas">
+      <h2 class="sr-only">Personas</h2>
+      <div class="findings" id="findings"></div>
+
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Organismo" id="orgSeg">
+          <button type="button" data-org="all" aria-pressed="true">Todos</button>
+          <button type="button" data-org="renfe" aria-pressed="false">Renfe</button>
+          <button type="button" data-org="adif" aria-pressed="false">Adif</button>
+          <button type="button" data-org="ministerio" aria-pressed="false">Ministerio</button>
+        </div>
+        <div class="chips" role="group" aria-label="Filtros" id="flagChips">
+          <button type="button" class="chip" data-flag="puente" aria-pressed="false">Vínculo con Puente</button>
+          <button type="button" class="chip" data-flag="noferro" aria-pressed="false">Sin experiencia ferroviaria</button>
+          <button type="button" class="chip" data-flag="cuest" aria-pressed="false">Idoneidad dudosa</button>
+          <button type="button" class="chip" data-flag="polem" aria-pressed="false">Con polémicas</button>
+        </div>
+        <label class="search">
+          <span class="sr-only">Buscar</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Buscar nombre, cargo, AUVASA…" autocomplete="off">
+        </label>
+      </div>
+      <p class="count" id="count" aria-live="polite"></p>
+      <div class="cards" id="cards"></div>
+    </section>
+
+    <!-- RED -->
+    <section id="panel-red" class="panel" role="tabpanel" aria-labelledby="tab-red" hidden>
+      <h2>La red de Puente</h2>
+      <p class="intro">Trayectorias que llevan a la cúpula de Renfe y Adif. Una línea continua indica una relación profesional documentada con Puente o con su ministerio. Una línea discontinua indica que el vínculo solo lo afirma la prensa.</p>
+      <div class="hub">
+        <div class="hub-node">
+          <span class="avatar min">OP</span>
+          <div><strong>Óscar Puente</strong><span>Alcalde de Valladolid 2015-2023 · Ministro desde noviembre de 2023</span></div>
+        </div>
+      </div>
+      <ol class="paths" id="paths"></ol>
+      <aside class="note">
+        <h3>Lectura</h3>
+        <p>En <strong>Renfe</strong>, el presidente y su número dos llegan del mismo origen: AUVASA, la empresa municipal de autobuses de Valladolid durante la alcaldía de Puente. Después pasaron por el ministerio. A ellos se suman su exjefe de gabinete, sentado en un consejo de administración, y una ex alta cargo del ministerio.</p>
+        <p>En <strong>Adif</strong>, el presidente tiene perfil técnico ferroviario y las direcciones generales son mayoritariamente de carrera. Las alegaciones de afinidad se centran en el gabinete y en la dirección de operaciones.</p>
+      </aside>
+    </section>
+
+    <!-- SUELDOS -->
+    <section id="panel-sueldos" class="panel" role="tabpanel" aria-labelledby="tab-sueldos" hidden>
+      <h2>Cuánto cobran</h2>
+      <p class="intro">Retribución bruta anual. Las barras rayadas son estimaciones o referencias de convocatoria que no se han podido confirmar. Pasa el dedo o el cursor por cada barra para ver la fuente.</p>
+      <figure class="chart" id="chart" aria-label="Sueldos brutos anuales"></figure>
+      <div class="legend-inline">
+        <span><i class="sw solid"></i> Cifra publicada</span>
+        <span><i class="sw hatch"></i> Estimación o referencia</span>
+      </div>
+
+      <h3 class="sub">Cuándo y cómo cobran</h3>
+      <div class="pay-grid" id="payGrid"></div>
+
+      <h3 class="sub">Evolución del sueldo de los presidentes</h3>
+      <div class="table-wrap">
+        <table class="tbl" id="histTbl">
+          <thead><tr><th scope="col">Puesto</th><th scope="col">Año</th><th scope="col">Bruto anual</th><th scope="col">Titular</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="fine">Los presidentes de Renfe y Adif cobran más del doble que el ministro que los propone: 195.263 € frente a 81.837 €.</p>
+    </section>
+
+    <!-- CASOS -->
+    <section id="panel-casos" class="panel" role="tabpanel" aria-labelledby="tab-casos" hidden>
+      <h2>Causas judiciales y señalamientos</h2>
+      <div class="callout">
+        <strong>Ningún miembro actual de la cúpula de Renfe o Adif está investigado judicialmente</strong> a <span class="fecha"></span>. Las causas por corrupción se concentran en la etapa de José Luis Ábalos (2018-2021) y en el caso Cerdán de amaño de obra pública. Sí hay una persona investigada que, según la prensa, sigue trabajando en Adif: Ignacio Zaldívar.
+      </div>
+      <div class="chips" role="group" aria-label="Filtrar por estado" id="caseChips">
+        <button type="button" class="chip" data-estado="all" aria-pressed="true">Todos</button>
+        <button type="button" class="chip" data-estado="condenado" aria-pressed="false">Condenados</button>
+        <button type="button" class="chip" data-estado="investigado" aria-pressed="false">Investigados</button>
+        <button type="button" class="chip" data-estado="prensa" aria-pressed="false">Solo prensa</button>
+      </div>
+      <ol class="cases" id="cases"></ol>
+
+      <h3 class="sub">Accidentes de 2026 y responsabilidades</h3>
+      <div class="pay-grid">
+        <article class="pay">
+          <h4>Adamuz · 18-01-2026</h4>
+          <p>Un Iryo descarriló e invadió la vía contigua, por donde circulaba un Alvia. Murieron 46 personas. La CIAF y la Guardia Civil apuntan a una rotura de carril. El presidente de la CIAF declaró en el Senado que "Iryo y Renfe son víctimas". La jueza de Montoro reprochó a Adif que retirara material de la vía sin permiso. Todavía no hay informe final ni imputados.</p>
+          <a href="https://en.wikipedia.org/wiki/2026_Adamuz_rail_disaster" target="_blank" rel="noopener">Fuente</a>
+        </article>
+        <article class="pay">
+          <h4>Urda · 28-10-2026</h4>
+          <p>Tras una caída del sistema de señalización LZB, el puesto de mando de Adif en Atocha autorizó reanudar la marcha y un AVE embistió a un Iryo detenido. Hay ≈69 muertos (cifra provisional). Puente culpa a una "decisión humana inexplicable". La migración de LZB a ERTMS, adjudicada en 2021, lleva retraso. Vox se ha querellado.</p>
+          <a href="https://www.eldiario.es/castilla-la-mancha/averia-tecnica-cadena-errores-humanos-provocaron-fatal-accidente-urda_1_13621405.html" target="_blank" rel="noopener">Fuente</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- METODO -->
+    <section id="panel-metodo" class="panel" role="tabpanel" aria-labelledby="tab-metodo" hidden>
+      <h2>Método y advertencias</h2>
+      <div class="prose">
+        <p><strong>Presunción de inocencia.</strong> Esta web separa los hechos documentados de las alegaciones. Que alguien tenga un vínculo político no es delito, y que la prensa lo señale no es una imputación. Solo se habla de "investigado" o "condenado" cuando hay una resolución judicial.</p>
+
+        <h3>Etiquetas de cada dato</h3>
+        <ul class="tags-legend">
+          <li><span class="tag t-judicial">Judicial</span> Hay una resolución o procedimiento ante un juez (imputación, condena, archivo, querella o recurso).</li>
+          <li><span class="tag t-hecho">Hecho</span> Documentado en el BOE, en fuentes oficiales o en varias fuentes coincidentes.</li>
+          <li><span class="tag t-prensa">Prensa</span> Alegación periodística sin causa judicial. A menudo procede de una sola fuente.</li>
+          <li><span class="tag t-politica">Política</span> Crítica de partidos, sindicatos o víctimas.</li>
+        </ul>
+
+        <h3>Cómo se valora la idoneidad</h3>
+        <p>Cada persona se puntúa de 0 a 3 en tres ejes, a partir de su trayectoria pública:</p>
+        <ul>
+          <li><strong>Gestión</strong>: tamaño y responsabilidad de las organizaciones que ha dirigido antes.</li>
+          <li><strong>Ferroviaria</strong>: experiencia previa en el sector ferroviario.</li>
+          <li><strong>Formación técnica</strong>: si su formación encaja con las funciones del puesto.</li>
+        </ul>
+        <p>El veredicto (<em>cualificado</em>, <em>cualificación parcial</em>, <em>idoneidad dudosa</em> o <em>sin datos suficientes</em>) es una valoración editorial razonada que se explica en cada ficha. No es una calificación oficial.</p>
+
+        <h3>Limitaciones</h3>
+        <ul>
+          <li>La información procede de buscadores y de resúmenes de prensa. Algunas webs (Portal de Transparencia, adif.es, varias cabeceras) no pudieron leerse completas.</li>
+          <li>Renfe y Adif no publican el sueldo individual de sus directores generales. Las cifras marcadas como estimación son referencias.</li>
+          <li>Las afirmaciones de una sola fuente se indican como tales. Muchas proceden de The Objective, un medio con línea editorial crítica con el ministerio.</li>
+          <li>No se ha verificado la militancia de ningún directivo salvo la de Óscar Puente.</li>
+        </ul>
+        <p>¿Has visto un error? Cada ficha enlaza a sus fuentes para contrastarlas.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot wrap">
+    <p>Elaborado con fuentes públicas: BOE, Ministerio de Transportes, Renfe, Adif, CGPJ y prensa. Corte de datos: <span class="fecha"></span>.</p>
+  </footer>
+
+  <div class="tip" id="tip" role="tooltip" hidden></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
